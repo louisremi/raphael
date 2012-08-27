@@ -372,13 +372,13 @@
             y: nu
         },*/
         //whitespace = /[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]/g,
-        commaSpaces = /[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*/,
+        commaSpaces = / *, */,
         hsrg = {hs: 1, rg: 1},
         p2s = /,?([achlmqrstvxz]),?/gi,
-        pathCommand = /([achlmrqstvz])[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029,]*((-?\d*\.?\d*(?:e[\-+]?\d+)?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*)+)/ig,
-        tCommand = /([rstm])[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029,]*((-?\d*\.?\d*(?:e[\-+]?\d+)?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*)+)/ig,
-        pathValues = /(-?\d*\.?\d*(?:e[\-+]?\d+)?)[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*/ig,
-        radial_gradient = R._radial_gradient = /^r(?:\(([^,]+?)[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*([^\)]+?)\))?/,
+        pathCommand = /([achlmrqstvz])[ ,]*((-?\d*\.?\d*(?:e[\-+]?\d+)? *,? *)+)/ig,
+        tCommand = /([rstm])[ ,]*((-?\d*\.?\d*(?:e[\-+]?\d+)? *,? *)+)/ig,
+        pathValues = /(-?\d*\.?\d*(?:e[\-+]?\d+)?) *,? */ig,
+        radial_gradient = R._radial_gradient = /^r(?:\(([^,]+?) *, *([^\)]+?)\))?/,
         eldata = {},
         sortByKey = function (a, b) {
             return a.key - b.key;
@@ -1289,9 +1289,9 @@
                interPathHelper(path, [["M", x, y], ["H", bbox.x2 + 10]], 1) % 2 == 1;
     };*/
     R._removedFactory = function (methodname) {
-        return function () {
+        /*return function () {
             eve("raphael.log", null, "Rapha\xebl: you are calling to method \u201c" + methodname + "\u201d of removed object", methodname);
-        };
+        };*/
     };
     
     /*var pathDimensions = R.pathBBox = function (path) {
@@ -2393,7 +2393,7 @@
     }*/
     
     
-    elproto.data = function (key, value) {
+    /*elproto.data = function (key, value) {
         var data = eldata[this.id] = eldata[this.id] || {};
         if (arguments.length == 1) {
             if (R.is(key, "object")) {
@@ -2417,7 +2417,7 @@
             eldata[this.id] && delete eldata[this.id][key];
         }
         return this;
-    };
+    };*/
     
     /*elproto.hover = function (f_in, f_out, scope_in, scope_out) {
         return this.mouseover(f_in, scope_in).mouseout(f_out, scope_out || scope_in);
@@ -3667,7 +3667,7 @@
     };*/
 
     
-    paperproto.add = function (json) {
+    /*paperproto.add = function (json) {
         if (R.is(json, "array")) {
             var res = this.set(),
                 i = 0,
@@ -3679,7 +3679,7 @@
             }
         }
         return res;
-    };
+    };*/
 
     
     R.format = function (token, params) {
@@ -3690,7 +3690,7 @@
         return token || E;
     };
     
-    R.fullfill = (function () {
+    /*R.fullfill = (function () {
         var tokenRegex = /\{([^\}]+)\}/g,
             objNotationRegex = /(?:(?:^|\.)(.+?)(?=\[|\.|$|\()|\[('|")(.+?)\2\])(\(\))?/g, // matches .xxxxx or ["xxxxx"] to run over object properties
             replacer = function (all, key, obj) {
@@ -3712,7 +3712,7 @@
                 return replacer(all, key, obj);
             });
         };
-    })();
+    })();*/
     
     R.ninja = function () {
         oldRaphael.was ? (g.win.Raphael = oldRaphael.is) : delete Raphael;
@@ -4372,6 +4372,7 @@ window.Raphael.svg && function (R) {
 
     Element.prototype = elproto;
     elproto.constructor = Element;
+    R.elem = Element;
 
     R._engine.path = function (pathString, SVG) {
         var el = $("path");
