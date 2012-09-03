@@ -496,7 +496,7 @@
     }
 
     
-    R.angle = function (x1, y1, x2, y2, x3, y3) {
+    /*R.angle = function (x1, y1, x2, y2, x3, y3) {
         if (x3 == null) {
             var x = x1 - x2,
                 y = y1 - y2;
@@ -507,15 +507,15 @@
         } else {
             return R.angle(x1, y1, x3, y3) - R.angle(x2, y2, x3, y3);
         }
-    };
+    };*/
     
     R.rad = function (deg) {
         return deg % 360 * PI / 180;
     };
     
-    R.deg = function (rad) {
+    /*R.deg = function (rad) {
         return rad * 180 / PI % 360;
-    };
+    };*/
     
     /*R.snapTo = function (values, value, tolerance) {
         tolerance = R.is(tolerance, "finite") ? tolerance : 10;
@@ -826,7 +826,7 @@
                 green = toInt(rgb[2].substring(3, 5), 16);
                 red = toInt(rgb[2].substring(1, 3), 16);
             }
-            if (rgb[3]) {
+            /*if (rgb[3]) {
                 blue = toInt((t = rgb[3].charAt(3)) + t, 16);
                 green = toInt((t = rgb[3].charAt(2)) + t, 16);
                 red = toInt((t = rgb[3].charAt(1)) + t, 16);
@@ -867,7 +867,7 @@
                 rgb[1].toLowerCase().slice(0, 4) == "hsla" && (opacity = toFloat(values[3]));
                 values[3] && values[3].slice(-1) == "%" && (opacity /= 100);
                 return R.hsl2rgb(red, green, blue, opacity);
-            }
+            }*/
             rgb = {r: red, g: green, b: blue, toString: clrToString};
             rgb.hex = "#" + (16777216 | blue | (green << 8) | (red << 16)).toString(16).slice(1);
             R.is(opacity, "finite") && (rgb.opacity = opacity);
@@ -876,7 +876,7 @@
         return {r: -1, g: -1, b: -1, hex: "none", error: 1, toString: clrToString};
     }, R);
     
-    R.hsb = cacher(function (h, s, b) {
+    /*R.hsb = cacher(function (h, s, b) {
         return R.hsb2rgb(h, s, b).hex;
     });
     
@@ -886,9 +886,9 @@
     
     R.rgb = cacher(function (r, g, b) {
         return "#" + (16777216 | b | (g << 8) | (r << 16)).toString(16).slice(1);
-    });
+    });*/
     
-    R.getColor = function (value) {
+    /*R.getColor = function (value) {
         var start = this.getColor.start = this.getColor.start || {h: 0, s: 1, b: value || .75},
             rgb = this.hsb2rgb(start.h, start.s, start.b);
         start.h += .075;
@@ -902,7 +902,7 @@
     
     R.getColor.reset = function () {
         delete this.start;
-    };
+    };*/
 
     // http://schepers.cc/getting-to-the-point
     /*function catmullRom2bezier(crp, z) {
@@ -1343,7 +1343,7 @@
             res.toString = R._path2string;
             return res;
         },
-        pathToRelative = R._pathToRelative = function (pathArray) {
+        /*pathToRelative = R._pathToRelative = function (pathArray) {
             var pth = paths(pathArray);
             if (pth.rel) {
                 return pathClone(pth.rel);
@@ -1421,7 +1421,7 @@
             res.toString = R._path2string;
             pth.rel = pathClone(res);
             return res;
-        },
+        },*/
         pathToAbsolute = R._pathToAbsolute = function (pathArray) {
             var pth = paths(pathArray);
             if (pth.abs) {
@@ -3858,8 +3858,8 @@ window.Raphael.svg && function (R) {
                     x1: vector[0],
                     y1: vector[1],
                     x2: vector[2],
-                    y2: vector[3],
-                    gradientTransform: element.matrix.invert()
+                    y2: vector[3]//,
+                    //gradientTransform: element.matrix.invert()
                 });
                 SVG.defs.appendChild(el);
                 for (var i = 0, ii = dots.length; i < ii; i++) {
@@ -4699,7 +4699,7 @@ window.Raphael.svg && function (R) {
         setFillAndStroke(res, res.attrs);
         return res;
     };
-    R._engine.setSize = function (width, height) {
+    /*R._engine.setSize = function (width, height) {
         this.width = width || this.width;
         this.height = height || this.height;
         this.canvas.setAttribute("width", this.width);
@@ -4708,7 +4708,7 @@ window.Raphael.svg && function (R) {
             this.setViewBox.apply(this, this._viewBox);
         }
         return this;
-    };
+    };*/
     R._engine.create = function () {
         var con = R._getContainer.apply(0, arguments),
             container = con && con.container,
@@ -4754,7 +4754,7 @@ window.Raphael.svg && function (R) {
         container.renderfix();
         return container;
     };
-    R._engine.setViewBox = function (x, y, w, h, fit) {
+    /*R._engine.setViewBox = function (x, y, w, h, fit) {
         eve("raphael.setViewBox", this, this._viewBox, [x, y, w, h, fit]);
         var size = mmax(w / this.width, h / this.height),
             top = this.top,
@@ -4784,7 +4784,7 @@ window.Raphael.svg && function (R) {
         }
         this._viewBox = [x, y, w, h, !!fit];
         return this;
-    };
+    };*/
     
     R.prototype.renderfix = function () {
         var cnvs = this.canvas,
@@ -5682,10 +5682,10 @@ window.Raphael.vml && function (R) {
         skew.on = true;
         el.appendChild(skew);
         p.skew = skew;
-        p.transform(E);
+        //p.transform(E);
         return p;
     };
-    R._engine.setSize = function (width, height) {
+    /*R._engine.setSize = function (width, height) {
         var cs = this.canvas.style;
         this.width = width;
         this.height = height;
@@ -5725,7 +5725,7 @@ window.Raphael.vml && function (R) {
             el.transform("...");
         });
         return this;
-    };
+    };*/
     var createNode;
     R._engine.initWin = function (win) {
             var doc = win.document;
